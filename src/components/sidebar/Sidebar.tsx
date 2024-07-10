@@ -1,146 +1,123 @@
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet"
 
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-
-
-import { motion, useAnimate } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { Button } from "../ui/button"
-import { CreditCardIcon, CrossIcon, FolderClosedIcon, Group, ListCollapseIcon, MenuIcon, PointerOffIcon, Settings2Icon, SettingsIcon, ShieldCloseIcon, SidebarCloseIcon, TicketIcon, User2Icon, UserCircle2Icon, UserIcon, UserPlus2Icon, UserSquareIcon } from "lucide-react"
-import { ExoticComponent, ReactNode, useEffect, useState } from "react"
-import { SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
-import { Cross2Icon, IdCardIcon, LockClosedIcon, ResumeIcon } from "@radix-ui/react-icons"
+import { CreditCardIcon, Group, MenuIcon, PlusSquareIcon, SettingsIcon } from "lucide-react"
+import { ReactNode, useState } from "react"
+import { SignOutButton, SignedIn } from "@clerk/clerk-react"
 import SidebarDropdown from "./SidebarDropdown"
-import { Label } from "../ui/label"
+import { ThemeToggle } from "../theme/ThemeToggle"
+import {
+    Sheet,
+    SheetContent,
+    SheetTrigger,
+    SheetClose
+} from "../ui/sheet"
+import { Cross2Icon } from "@radix-ui/react-icons"
+import FramrButton from "../framr/FramrButton"
+import FramrDiv from "../framr/FramrDiv"
 
-const sidebar = {
-    open: (height = 1000) => ({
-        clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
-        transition: {
-            type: "spring",
-            stiffness: 20,
-            restDelta: 2
-        }
-    }),
-    closed: {
-        clipPath: "circle(30px at 40px 40px)",
-        transition: {
-            delay: 0.5,
-            type: "spring",
-            stiffness: 400,
-            damping: 40
-        }
-    }
-};
-
-const variants = {
-    open: {
-        transition: { staggerChildren: 0.09, delayChildren: 0.2 }
-    },
-    closed: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 }
-    }
-};
-
-type AppSheetProps = {
+type SidebarProps = {
     sheetKey?: string;
+    isSheetOpen?: boolean;
+    children?: ReactNode;
 }
 
 type SidebarButtonTemplate = { label: string; icon: ReactNode; }
 
 const sideBarButtonIconDefaultClasses: string = "scale-75"
 
-const SidebarButtonCollection: SidebarButtonTemplate[] = [
-    { label: "", icon: <SidebarDropdown triggerButtonLabel={"Manage Profile"} triggerButtonClassName="border-0 m-0 p-0" /> },
-    { label: "My Resumes", icon: <Group className={sideBarButtonIconDefaultClasses} /> },
-    { label: "View Settings", icon: <SettingsIcon className={sideBarButtonIconDefaultClasses} /> },
-    { label: "Manage Payments", icon: <CreditCardIcon className={sideBarButtonIconDefaultClasses} /> },
-]
 
-const SidebarButtonDefaultTwClass: string = "w-full rounded-xl border-0 text-md p-2 flex text-sm justify-center items-center shadow-md"
+const SidebarButtonDefaultTwClass: string = "w-[100%] px-3 flex flex-row text-sm justify-between xs:justify-center items-center h-9 border-b border-b-gray-100 bg-background text-foreground dark:shadow-card-foreground dark:border dark:shadow-none hover:bg-gray-50 active:opacity-70"
 
-const AppSheet = ({ sheetKey }: AppSheetProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+const Sidebar = ({ sheetKey, isSheetOpen = false }: SidebarProps) => {
+    const [isOpen, setIsOpen] = useState<boolean>(isSheetOpen)
+    const SidebarButtonCollection: SidebarButtonTemplate[] = [
+        { label: "Create New Resume", icon: <PlusSquareIcon className="scale-75" /> },
+        { label: "", icon: <SidebarDropdown triggerButtonLabel={"Manage Profile"} triggerButtonClassName="border-0" /> },
+        { label: "My Resumes", icon: <Group className={sideBarButtonIconDefaultClasses} /> },
+        { label: "View Settings", icon: <SettingsIcon className={sideBarButtonIconDefaultClasses} /> },
+        { label: "Manage Payments", icon: <CreditCardIcon className={sideBarButtonIconDefaultClasses} /> },
+    ]
     return (
-        <Sheet key={sheetKey || "left"}>
-            <SheetTrigger asChild>
-                <motion.button className="p-2 rounded-xl border" onClick={() => setIsOpen(!isOpen)}>
-                    <MenuIcon />
-                </motion.button>
-            </SheetTrigger>
-            <SheetContent
-                className="w-[80%] rounded-r-2xl flex flex-col justify-between"
-                side={"left"}
-            >
-                <Card className="w-[100%] mx-auto mt-4">
-                    <CardHeader className="text-center">
-                        <CardTitle>ProMate Resume Builder</CardTitle>
-                        <CardDescription>Choose from over 1000+ Templates</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-2 shadow-lg justify-around">
-                        <Card className="w-[100%] mx-auto">
-                            <CardHeader>
-                                <CardTitle className="flex justify-between items-center gap-4">
-                                    <p>
-                                        Hola Amigos!
-                                    </p>
-                                    <UserButton />
-                                </CardTitle>
-                                <CardDescription>It is a very good day today!</CardDescription>
-                            </CardHeader>
-                            <CardContent className="flex flex-col gap-[4.5px] justify-center">
-                                {SidebarButtonCollection.map(sButton =>
-                                    <motion.button
+        <FramrDiv
+            animate={{
+                y: [0, -10, 0],
+                rotate: [0, 0, 25, -25, 0],
+            }}
+            transition={{
+                duration: 4,
+                ease: "easeInOut",
+                times: [1],
+                repeat: Infinity,
+                repeatDelay: 1
+            }}
+            className="w-0 border-0 border-gray-400 rounded-xl shadow-none bg-background text-foreground dark:shadow-2xl dark:shadow-white dark:opacity-50 dark:hover:opacity-100"
+
+        >
+            <Sheet key={sheetKey || "left"} open={isOpen} onOpenChange={setIsOpen} modal={false}>
+                <SheetTrigger asChild>
+                    <motion.button
+                        whileTap={{ scale: 0.93 }}
+                        className="p-2 rounded-xl shadow-md bg-background text-foreground dark:shadow-card-foreground dark:border dark:shadow-none"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <MenuIcon />
+                    </motion.button>
+                </SheetTrigger>
+                <SheetContent
+                    className="w-[80%] rounded-r-2xl flex flex-col justify-between"
+                    side={"left"}
+                >
+                    <SheetClose className="absolute left-2 top-2 rounded-lg" >
+                        <Button variant={"outline"} size="icon">
+                            <Cross2Icon className="" />
+                            <span className="sr-only">Close</span>
+                        </Button>
+                    </SheetClose>
+                    <ThemeToggle />
+                    <Card className="w-[100%] mx-auto p-1 h-full border overflow-scroll shadow-none">
+                        <CardHeader>
+                            <CardTitle>ProMate Resume Builder</CardTitle>
+                            <CardDescription>Choose from over 1000+ Templates</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-col text-center rounded-2xl justify-between h-[85%]">
+                            <CardContent className="flex flex-wrap gap-6 border-0 p-0">
+                                {SidebarButtonCollection.map((sButton, index) =>
+                                    <FramrButton
+                                        key={sButton.label}
                                         className={SidebarButtonDefaultTwClass}
+                                        animate={{ x: [1000, index / 2 === 0 ? index * 30 : index * -30, 0] }}
+                                        transition={{ ease: "circInOut", duration: 0.8, times: [1], repeatDelay: 1 }}
+                                        whileTap={{ scale: 0.97 }}
                                     >
                                         {sButton.label}
                                         {sButton.icon}
-                                    </motion.button>
+                                    </FramrButton>
                                 )}
                             </CardContent>
-                        </Card>
-                    </CardContent>
-                </Card>
-
-                <SheetFooter>
-                    <SignedIn>
-                        <SignOutButton>
-                            <Button variant={"ghost"} className="shadow-md border rounded-xl border-gray-100">Sign Out</Button>
-                        </SignOutButton>
-                    </SignedIn>
-                </SheetFooter>
-
-            </SheetContent>
-
-
-        </Sheet >
+                            <div className="flex flex-col w-full">
+                                <SignedIn>
+                                    <SignOutButton>
+                                        <Button variant={"default"} className="shadow-xl border rounded-2xl w-full border-gray-0">Sign Out</Button>
+                                    </SignOutButton>
+                                </SignedIn>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </SheetContent>
+            </Sheet >
+        </FramrDiv>
 
     )
 }
 
-export default AppSheet
+export default Sidebar

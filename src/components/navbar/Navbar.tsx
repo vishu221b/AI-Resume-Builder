@@ -1,123 +1,33 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
     NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle
-} from "src/components/ui/navigation-menu"
-import { Icons } from "../ui/icons";
-
+} from "src/components/ui/navigation-menu";
 import { cn } from "src/lib/utils";
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { Button } from "../ui/button";
+import { SignedIn, UserButton } from "@clerk/clerk-react";
 import Sidebar from "../sidebar/Sidebar";
-
-export type ComponentsContentType = { title: string; href: string; description: string; }
-
-const components: ComponentsContentType[] = [
-    {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
-        description:
-            "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-        title: "Hover Card",
-        href: "/docs/primitives/hover-card",
-        description:
-            "For sighted users to preview content available behind a link.",
-    },
-    {
-        title: "Progress",
-        href: "/docs/primitives/progress",
-        description:
-            "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-        title: "Scroll-area",
-        href: "/docs/primitives/scroll-area",
-        description: "Visually or semantically separates content.",
-    },
-    {
-        title: "Tabs",
-        href: "/docs/primitives/tabs",
-        description:
-            "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-        title: "Tooltip",
-        href: "/docs/primitives/tooltip",
-        description:
-            "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
-]
+import NavbarMiddle from "./NavbarMiddle";
 const Navbar = () => {
     return (
-        <div className="border-[1px] md:max-w-[80vw] md:mx-auto border-gray-100 rounded-2xl p-2 shadow-lg m-4 flex sm:flex-row gap-4 justify-between md:justify-center items-center px-4">
-            <div className="md:hidden">
-                {/* <AppDrawer /> */}
+        <div
+            className="
+            border-[1px] 
+            border-gray-100 
+            dark:border-gray-900 
+            rounded-2xl p-2 
+            shadow-lg mx-1 my-2 
+            flex sm:flex-row gap-4 
+            justify-between 
+            md:justify-center 
+            items-center 
+            px-4 z-50
+            min-h-20
+            "
+        >
+            <div className="md:hiddens">
                 <Sidebar />
             </div>
-            <NavigationMenu className="rounded-lg border-0 mx-auto hidden md:block">
-                <NavigationMenuList className="flex sm:flex-row gap-2">
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                <li className="row-span-3">
-                                    <NavigationMenuLink asChild>
-                                        <a
-                                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                            href="/"
-                                        >
-                                            <Icons.logo className="h-6 w-6" />
-                                            <div className="mb-2 mt-4 text-lg font-medium">
-                                                shadcn/ui
-                                            </div>
-                                            <p className="text-sm leading-tight text-muted-foreground">
-                                                Beautifully designed components built with Radix UI and
-                                                Tailwind CSS.
-                                            </p>
-                                        </a>
-                                    </NavigationMenuLink>
-                                </li>
-                                <ListItem href="/docs" title="Introduction">
-                                    Re-usable components built using Radix UI and Tailwind CSS.
-                                </ListItem>
-                                <ListItem href="/docs/installation" title="Installation">
-                                    How to install dependencies and structure your app.
-                                </ListItem>
-                                <ListItem href="/docs/primitives/typography" title="Typography">
-                                    Styles for headings, paragraphs, lists...etc
-                                </ListItem>
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                                {components.map((component) => (
-                                    <ListItem
-                                        key={component.title}
-                                        title={component.title}
-                                        href={component.href}
-                                    >
-                                        {component.description}
-                                    </ListItem>
-                                ))}
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <Button className="">Getting started</Button>
-                    </NavigationMenuItem>
-                </NavigationMenuList>
-            </NavigationMenu>
-            <div className="border-0">
+            <NavbarMiddle />
+            <div className="border-0 overflow-hidden">
                 <SignedIn>
                     <UserButton appearance={{
                         elements: {
@@ -125,18 +35,11 @@ const Navbar = () => {
                         }
                     }} />
                 </SignedIn>
-                <SignedOut>
-                    <a href="/auth/sign-in">
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Sign In
-                        </NavigationMenuLink>
-                    </a>
-                </SignedOut>
             </div>
         </div>)
 }
 
-const ListItem = React.forwardRef<
+export const ListItem = React.forwardRef<
     React.ElementRef<"a">,
     React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {

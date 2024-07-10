@@ -7,6 +7,7 @@ An utility AI Resume Builder and Writer so that I can build my Resume in the req
 - Vite
 - React + Typescript
 - Clerk
+- TailwindCSS
 - shadcn/ui
 - @radix-ui
 - Lucide-react
