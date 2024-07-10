@@ -48,24 +48,24 @@ export const Hero = () => {
     })
 
     const [screenW, setScreenW] = useState<number>(0)
-    const [screenH, setScreenH] = useState<number>(0)
-    const [maxBoxwidth, setMaxBoxwidth] = useState<number>(0)
+    // const [screenH, setScreenH] = useState<number>(0)
+    // const [maxBoxwidth, setMaxBoxwidth] = useState<number>(0)
 
 
     useEffect(() => {
-        setInterval(() => {
-            setScreenW(window.innerWidth)
-            setScreenH(window.innerHeight)
-        }, 0)
+        setScreenW(window.innerWidth)
+        // setInterval(() => {
+        //     setScreenH(window.innerHeight)
+        // }, 0)
     }, [])
 
-    const getInterval = () => {
-        if (screenW > 1000) {
-            setMaxBoxwidth()
-        }
-        else if (screenW > 1000) { }
-        return screenW
-    };
+    // const getInterval = () => {
+    //     if (screenW > 1000) {
+    //         setMaxBoxwidth()
+    //     }
+    //     else if (screenW > 1000) { }
+    //     return screenW
+    // };
 
     return (
         <div className="rounded-3xl 
@@ -120,9 +120,6 @@ export const Hero = () => {
                     <h1 className={`text-4xl md:text-5xl tracking-tighter text-left font-regular font-medium`}>
                         Build a <span className="text-primary">Professional Resume</span> using AI!
                     </h1>
-                    {/* ScreenW: {screenW}
-                    <br />
-                    ScreenH: {screenH} */}
                     <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground text-justify">
                         Utilize the in-house AI Resume Builder leveraging ChatGPT models and Gemini AI to develop a Professional Resume exportable with over a hundred free templates.
                     </p>
