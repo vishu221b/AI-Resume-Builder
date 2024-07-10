@@ -14,15 +14,29 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { DropdownMenuSeparator } from "./ui/dropdown-menu";
 
 export const Quickstart = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
-
+  useGSAP(() => {
+    gsap.fromTo("#try-it-now", {
+      opacity: 0,
+      reapeat: -1,
+      yoyo: true,
+      delay: .1,
+    }, {
+      opacity: 1,
+      reapeat: -1,
+      yoyo: true,
+      delay: .4,
+    })
+  })
   return (
     <div className="py-12 md:px-6 md:py-24 shadow-2xl dark:shadow-none shadow-slate-100 drop-shadow-2xl rounded-3xl border-0 dark:border-0">
       <div className="container max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20">
+        <div className="grid sm:grid-cols-2 gap-8 sm:gap-20">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
               <div>
@@ -69,7 +83,7 @@ export const Quickstart = () => {
 
           <div className="justify-center flex items-center">
             <div className="rounded-md text-center flex flex-col border border-gray-50 dark:border-gray-900 shadow-lg min-w-full md:max-w-[50%] p-8 gap-4">
-              <p className="text-lg mx-auto">Quickstart</p>
+              <p className="text-auto mx-auto" id="try-it-now">Start Building</p>
               <DropdownMenuSeparator />
               <div className="grid w-full max-w-sm items-center gap-2 mx-auto">
                 <Label htmlFor="firstname">First name</Label>

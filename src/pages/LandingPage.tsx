@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero'
 import { Footer } from '@/components/Footer'
-import { Quickstart } from '@/components/Quickstart'
+import { Quickstart } from '@/components/QuickstartForm'
 import { Pricing } from '@/components/Pricing'
 import { Testimonials } from '@/components/Testimonials'
 import { SignedOut, useUser } from '@clerk/clerk-react'
