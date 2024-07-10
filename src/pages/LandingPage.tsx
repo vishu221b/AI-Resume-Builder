@@ -26,7 +26,7 @@ const LandingPage = ({ doNavigation = false }: LandingPageProps) => {
           </NavMenu>
         </div>
       </SignedOut>
-      <div className='border-gray-900 rounded-3xl h-[calc(100vh-10%)]'>
+      <div className='border-0 border-gray-900 rounded-3xl'>
         <Hero />
       </div>
       <Testimonials />

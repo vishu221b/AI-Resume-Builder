@@ -47,11 +47,11 @@ const appRouter = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <ThemeProvider defaultTheme="dark" storageKey='custom-theming'>
-        <RouterProvider router={appRouter} />
-      </ThemeProvider>
-    </ClerkProvider>
-  </React.StrictMode >
+  // <React.StrictMode>
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ThemeProvider defaultTheme="dark" storageKey='custom-theming'>
+      <RouterProvider router={appRouter} />
+    </ThemeProvider>
+  </ClerkProvider>
+  // </React.StrictMode >
 );

@@ -25,72 +25,71 @@ import gsap from "gsap";
 gsap.registerPlugin(useGSAP, Flip, ScrollTrigger, Observer, ScrollToPlugin, Draggable, MotionPathPlugin, EaselPlugin, PixiPlugin, TextPlugin, ExpoScaleEase, SlowMo);
 
 export const Hero = () => {
-    const elRef = useRef()
 
     useGSAP(() => {
-        const shape2 = 'M469.539032,263.986786H-0.000001L0,229.890961c310.649475,58.156982,255.61113-98.5,469.539032-65.062302V263.986786z'
-        const shape3 = 'M469.539032,263.986786H-0.000001L0,0c226.11113,0,182.887283-0.414484,469.539032,0V263.986786zz'
         gsap.fromTo(
-            '#fullpara',
+            '#spline-box',
             {
-                ease: 'power1.inOut',
-                opacity: 0,
-                y: 200,
-                delay: 0.4
-            }, {
-            ease: 'power1.inOut',
-            opacity: 1,
-            y: 0,
-            delay: 0.4
-        })
-    })
-    gsap.fromTo(
-        '#spline-bo',
-        {
-            ease: 'power1.inOut',
-            opacity: 0,
-            // y: -200,
-            // z: -10,
-            scale: 0.4,
-            delay: 1
-        }, {
-        ease: 'power1.inOut',
-        opacity: 1,
-        y: 0,
-        delay: 0.4
+                // ease: 'power2.inOut',
+                opacity: 0.29,
+                y: 100,
+                scale: 0.01,
+                delay: .5,
+                duration: 5,
+            },
+            {
+                duration: 2,
+                // ease: 'back.inOut',
+                opacity: 1,
+                y: 0,
+                delay: .8,
+                scale: 0.91,
+            })
     })
 
-    const [screenW, setScreenW] = useState(0)
+    const [screenW, setScreenW] = useState<number>(0)
+    const [screenH, setScreenH] = useState<number>(0)
+    const [maxBoxwidth, setMaxBoxwidth] = useState<number>(0)
+
+
     useEffect(() => {
-        setScreenW(window.innerHeight)
+        setInterval(() => {
+            setScreenW(window.innerWidth)
+            setScreenH(window.innerHeight)
+        }, 0)
     }, [])
-    // const wave = document.querySelector('#wave')
-    // const logo = document.querySelector('.logo')
 
+    const getInterval = () => {
+        if (screenW > 1000) {
+            setMaxBoxwidth()
+        }
+        else if (screenW > 1000) { }
+        return screenW
+    };
 
-    // gsap.from(logo, {
-    //     repeat: -1,
-    //     repeatDelay: 1
-    // })
-    // gsap.to(wave, .8, {
-    //     attr: { d: shape2 },
-    //     ease: Power2.easeIn
-    // })
-    // gsap.to(wave, .8, {
-    //     attr: { d: shape3 },
-    //     ease: Power2.easeOut,
-    //     fill: '#77aeff'
-    // })
-    // gsap.from(logo, .8, {
-    //     y: 75
-    // })
     return (
-        <div className="rounded-3xl border-0 grid grid-cols-1 md:grid-cols-2 sm:max-w-[90%] mx-auto p-0 sm:p-7">
-            <div id="wave" className="absolute"></div>
-            <FramrDiv className="">
+        <div className="rounded-3xl 
+        border-0
+        lg:border
+        lg:px-10
+        lg:py-4
+        scale-105 
+        md:scale-105 
+        grid grid-cols-1 gap-6 items-center
+        lg:grid-cols-2 
+        w-[90%] 
+        md:max-w-[90%] 
+        xl:max-w-[1440px] 
+        mx-auto p-0 sm:p-17 
+        max-h-[calc(100vh-20vh)] 
+        lg:max-h-[calc(100vh-30vh)]
+        -translate-y-5
+        lg:-translate-y-0
+        ">
+            <FramrDiv className="max-h-hull transition-transform delay-1000" id={"spline-box"}>
                 <motion.img
                     src={HeroIllustration}
-                    className={`h-full w-full scale-150 z-50 overflow-visible`}
+                    className={`h-full w-full -z-50 overflow-visible`}
                     alt=""
                     animate={{ scale: [1.2, 1.2, 1.2], x: [-screenW / -7.3, 0], opacity: [0, 1] }}
                     transition={{ duration: 1.2, delay: .4 }}
@@ -100,18 +99,31 @@ export const Hero = () => {
                 className="
                     flex gap-12 flex-col rounded-3xl  
                     sm:p-12 md:p-10 px-4 py-10 
-                    mx-1 my-1
+                    mx-1 my-0
                     sm:mx-auto 
+                    md:bg-white md:bg-opacity-[2%]
+                    md:shadow-2xl
                     dark:md:bg-gray-900 dark:bg-opacity-[80%]
                     bg-transparent
                     overflow-hidden
+                    translate-y-0
+                    sm:-translate-y-10
+                    md:-translate-y-8
+                    lg:-translate-y-0
+                    xl:-translate-y-0
+                    -z-10
+                    max-h-full
+                    justify-center
                     "
             >
                 <div className="flex gap-4 flex-col border-0">
-                    <h1 className={`text-5xl md:text-5xl max-w-lg tracking-tighter text-left font-regular font-["Zen Maru Gothic"]zzz font-medium`}>
+                    <h1 className={`text-4xl md:text-5xl tracking-tighter text-left font-regular font-medium`}>
                         Build a <span className="text-primary">Professional Resume</span> using AI!
                     </h1>
-                    <p className="text-xl leading-relaxed tracking-tight text-muted-foreground text-justify">
+                    {/* ScreenW: {screenW}
+                    <br />
+                    ScreenH: {screenH} */}
+                    <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground text-justify">
                         Utilize the in-house AI Resume Builder leveraging ChatGPT models and Gemini AI to develop a Professional Resume exportable with over a hundred free templates.
                     </p>
                 </div>
@@ -136,8 +148,8 @@ export const Hero = () => {
                         </Link>
                     </SignedIn>
                 </div>
-            </FramrDiv>
-        </div>
+            </FramrDiv >
+        </div >
     )
 }
 export default Hero
