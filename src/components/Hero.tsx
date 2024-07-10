@@ -1,10 +1,9 @@
 import { MoveRight, WorkflowIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import HeroIllustration from "../assets/resume-scan-il.svg";
 import FramrDiv from "./framr/FramrDiv";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import { useGSAP } from "@gsap/react";
 import { ExpoScaleEase, SlowMo } from "gsap/EasePack";
