@@ -14,15 +14,24 @@ const Navbar = () => {
             border-gray-100 
             dark:border-gray-900 
             rounded-2xl p-2 
-            shadow-lg mx-1 my-2 
+            xshadow-lg 
+            my-1 
+            mb-10
             flex sm:flex-row gap-4 
             justify-between 
             md:justify-center 
             items-center 
-            px-4 z-50
+            px-4 
+            z-50
             min-h-20
+            w-[94%]
+            mx-auto
+            md:max-w-[94%] 
+        xl:max-w-[1320px] 
+        
             "
         >
+            {/* lg:max-w-[1400px] */}
             <div className="md:hiddens">
                 <Sidebar />
             </div>

@@ -1,4 +1,4 @@
-import { Check, MoveRight } from "lucide-react";
+import { Check, Cross, MoveRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
     Card,
@@ -9,57 +9,99 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 const pricingCardOptions = [
     {
-        cardTitle: "Personal",
-        cardDescription: "Our goal is to streamline SMB trade, making it easier and faster than ever for everyone and everywhere.",
+        cardTitle: "Student",
+        cardDescription: "Good for students or professionals seeking a quick Job Change.",
         priceAmount: 40,
         periodLabel: "month",
         isFree: true,
         keyPoints: [
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
+                title: "AI Models",
+                subTitle: "Gemini AI",
                 icon: <Check className="w-4 h-4 mt-2 text-primary" />
             },
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
+                title: "Template Access",
+                subTitle: "Only free templates",
                 icon: <Check className="w-4 h-4 mt-2 text-primary" />
             },
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
-                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+                title: "Resume Limit",
+                subTitle: "Can only export 1 Resume per day",
+                icon: <Cross2Icon className="w-4 h-4 mt-2 text-primary" />
+            },
+            {
+                title: "Watermark",
+                subTitle: "Watermark included on exported files",
+                icon: <Cross2Icon className="w-4 h-4 mt-2 text-primary" />
             },
         ],
-        button: { label: "Sign up Today", action: "/auth/sign-up" }
+        button: { label: "Start Building", action: "/auth/sign-up" }
     },
     {
-        cardTitle: "Commercial",
+        cardTitle: "Professional",
         cardDescription: "Our goal is to streamline SMB trade, making it easier and faster than ever for everyone and everywhere.",
-        priceAmount: 40,
+        priceAmount: 15,
         isFree: false,
         periodLabel: "month",
         keyPoints: [
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
+                title: "AI Models",
+                subTitle: "Gemini AI, ChatGPT-3.5, ChatGPT-4o",
                 icon: <Check className="w-4 h-4 mt-2 text-primary" />
             },
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
+                title: "Template Access",
+                subTitle: "All free and premium templates",
                 icon: <Check className="w-4 h-4 mt-2 text-primary" />
             },
             {
-                title: "Fast and reliable",
-                subTitle: "We've made it fast and reliable.",
+                title: "Resume Limit",
+                subTitle: "Can export 100 Resumes",
+                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+            },
+            {
+                title: "No Watermark",
+                subTitle: " Watermark is not Included",
                 icon: <Check className="w-4 h-4 mt-2 text-primary" />
             },
         ],
-        button: { label: "Sign up Today", action: "/auth/sign-up" }
+        button: { label: "Get Plan", action: "/auth/sign-up?plan=enterprise" }
+    },
+    {
+        cardTitle: "Enterprise",
+        spanMultiple: true,
+        cardDescription: "Our goal is to streamline SMB trade, making it easier and faster than ever for everyone and everywhere.",
+        priceAmount: 25,
+        isFree: false,
+        periodLabel: "month",
+        keyPoints: [
+            {
+                title: "AI Models",
+                subTitle: "All available AI models",
+                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+            },
+            {
+                title: "Template Access",
+                subTitle: "All free and premium templates",
+                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+            },
+            {
+                title: "Resume Limit",
+                subTitle: "Can export unlimited Resumes",
+                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+            },
+            {
+                title: "Premium Customer Support",
+                subTitle: "Troubleshooting Support is provided",
+                icon: <Check className="w-4 h-4 mt-2 text-primary" />
+            },
+        ],
+        button: { label: "Get Plan", action: "/auth/sign-up?plan=enterprise" }
     },
 ]
 
@@ -68,19 +110,19 @@ export const Pricing = () => (
     <div className="w-full py-10 lg:py-10">
         <div className="container mx-auto">
             <div className="flex text-center justify-center items-center gap-4 flex-col">
-                <Badge className="px-10 py-1 text-md font-medium">Pricing</Badge>
-                <div className="flex gap-2 flex-col">
+                <Badge className="px-6 py-0 text-md font-medium rounded-sm">Pricing</Badge>
+                <div className="flex gap-10 my-5 flex-col border-0">
                     <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-regular">
-                        Prices that go easy on your wallet!
+                        Pricing that goes easy on your wallet!
                     </h2>
                     <p className="text-lg leading-relaxed tracking-tight text-muted-foreground max-w-xl text-center">
                         Choose your plan
                     </p>
                 </div>
-                <div className={`grid pt-20 text-left grid-cols-1 sm:grid-cols-2 lg:grid-cols-${pricingCardOptions.length > 3 ? 3 : pricingCardOptions.length} w-full gap-8`}>
+                <div className={`grid p-0 text-left grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-8 `}>
                     {pricingCardOptions.map((opt, i) =>
-                        <Link to={opt.button.action} className="max-h-lg">
-                            <Card className="w-full rounded-3xl hover:cursor-pointer hover:shadow-2xl border light:border-gray-50 min-h-full" key={i}>
+                        <Link to={opt.button.action} className={`max-h-lg ${opt.spanMultiple ? "sm:col-span-2 lg:col-span-1" : ""}`}>
+                            <Card className={`w-full rounded-3xl hover:cursor-pointer hover:shadow-2xl border light:border-gray-50 min-h-full`} key={i}>
                                 <CardHeader>
                                     <CardTitle>
                                         <span className="flex flex-row gap-4 items-center font-bold text-lg">
@@ -134,5 +176,5 @@ export const Pricing = () => (
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 );

@@ -16,7 +16,7 @@ function App() {
       {isSignedIn ?
         <Navbar />
         : ""}
-      <div className='rounded-3xl shadow-xl mb-5]'>
+      <div className='rounded-3xl shadow-xl'>
         <Outlet />
       </div>
     </>

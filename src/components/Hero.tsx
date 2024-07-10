@@ -83,12 +83,12 @@ export const Hero = () => {
         max-h-[calc(100vh-20vh)] 
         lg:max-h-[calc(100vh-30vh)]
         -translate-y-5
-        lg:-translate-y-0
+        lg:translate-y-5
         ">
-            <FramrDiv className="max-h-hull transition-transform delay-1000" id={"spline-box"}>
+            <FramrDiv className="lg:max-h-full transition-transform delay-1000" id={"spline-box"}>
                 <motion.img
                     src={HeroIllustration}
-                    className={`h-full w-full -z-50 overflow-visible`}
+                    className={`lg:h-full max-h-sm lg:max-h-full w-full -z-50 overflow-visible`}
                     alt=""
                     animate={{ scale: [1.2, 1.2, 1.2], x: [-screenW / -7.3, 0], opacity: [0, 1] }}
                     transition={{ duration: 1.2, delay: .4 }}
