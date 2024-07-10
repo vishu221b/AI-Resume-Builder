@@ -77,10 +77,10 @@ export const Pricing = () => (
                         Choose your plan
                     </p>
                 </div>
-                <div className={`grid pt-20 text-left grid-cols-1 lg:grid-cols-${pricingCardOptions.length > 3 ? 3 : pricingCardOptions.length} w-full gap-8`}>
+                <div className={`grid pt-20 text-left grid-cols-1 sm:grid-cols-2 lg:grid-cols-${pricingCardOptions.length > 3 ? 3 : pricingCardOptions.length} w-full gap-8`}>
                     {pricingCardOptions.map((opt, i) =>
-                        <Link to={opt.button.action}>
-                            <Card className="w-full rounded-3xl hover:cursor-pointer hover:shadow-2xl border light:border-gray-50" key={i}>
+                        <Link to={opt.button.action} className="max-h-lg">
+                            <Card className="w-full rounded-3xl hover:cursor-pointer hover:shadow-2xl border light:border-gray-50 min-h-full" key={i}>
                                 <CardHeader>
                                     <CardTitle>
                                         <span className="flex flex-row gap-4 items-center font-bold text-lg">
@@ -94,9 +94,13 @@ export const Pricing = () => (
                                 <CardContent>
                                     <div className="flex flex-col gap-8 justify-start">
                                         <p className="flex flex-row  items-center gap-2 text-xl">
-                                            {opt.isFree ? "Free forever" :
+                                            {opt.isFree ? <span className="text-2xl lg:text-4xl">
+                                                Free Forever
+                                            </span> :
                                                 <>
-                                                    <span className="text-4xl">${opt.priceAmount}</span>
+                                                    <span className="text-2xl lg:text-4xl">
+                                                        ${opt.priceAmount}
+                                                    </span>
                                                     <span className="text-sm text-muted-foreground">
                                                         {" "}
                                                         / {opt.periodLabel}
